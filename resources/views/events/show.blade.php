@@ -17,6 +17,16 @@
         </div>
     </div>
 
-    <a href="{{ route('events.index') }}" class="btn btn-secondary mt-4">Torna alla Lista Eventi</a>
+    <h2 class="mt-5">Prenota il tuo posto</h2>
+    <form action="{{ route('events.book', $event->id) }}" method="POST">
+        @csrf
+        <div class="mb-3">
+            <label for="seats" class="form-label">Numero di posti</label>
+            <input type="number" class="form-control" id="seats" name="seats" min="1" max="{{ $event->available_seats }}" required>
+        </div>
+        <button type="submit" class="btn btn-success">Prenota</button>
+    </form>
+
+    <a href="{{ route('events.index') }}" class="btn btn-secondary mt-3">Torna alla lista eventi</a>
 </div>
 @endsection

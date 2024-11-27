@@ -28,3 +28,4 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 // Rotte accessibili a tutti gli utenti autenticati o ospiti
 Route::get('/events', [EventController::class, 'index'])->name('events.index');
 Route::get('/events/{event}', [EventController::class, 'show'])->name('events.show');
+Route::post('/events/{event}/book', [App\Http\Controllers\BookingController::class, 'store'])->name('events.book');
