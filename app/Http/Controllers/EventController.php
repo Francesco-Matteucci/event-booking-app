@@ -45,32 +45,48 @@ class EventController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
-    }
+        $event = Event::findOrFail($id);
 
+        return view('events.show', compact('event'));
+    }
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $event = Event::findOrFail($id);
+
+        return view('events.edit', compact('event'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'date' => 'required|date',
+            'available_seats' => 'required|integer|min:1',
+        ]);
+
+        $event = Event::findOrFail($id);
+        $event->update($validated);
+
+        return redirect()->route('events.index')->with('success', 'Evento aggiornato con successo!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $event = Event::findOrFail($id);
+        $event->delete();
+
+        return redirect()->route('events.index')->with('success', 'Evento eliminato con successo!');
     }
 }
