@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Event;
 use Illuminate\Http\Request;
 
 class EventController extends Controller
@@ -11,7 +12,9 @@ class EventController extends Controller
      */
     public function index()
     {
-        //
+        $events = Event::all();
+
+        return view('events.index', compact('events'));
     }
 
     /**
@@ -19,7 +22,7 @@ class EventController extends Controller
      */
     public function create()
     {
-        //
+        return view('events.create');
     }
 
     /**
@@ -27,7 +30,16 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'date' => 'required|date',
+            'available_seats' => 'required|integer|min:1',
+        ]);
+
+        Event::create($validated);
+
+        return redirect()->route('events.index')->with('success', 'Evento creato con successo!');
     }
 
     /**
