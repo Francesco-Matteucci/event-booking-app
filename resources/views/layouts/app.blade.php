@@ -29,13 +29,18 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-                        @auth
+                   <ul class="navbar-nav me-auto">
+                    @auth
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('events.index') }}">Eventi</a>
+                        </li>
+                        @if(Auth::user()->role === 'admin')
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('events.index') }}">Eventi</a>
+                                <a class="nav-link" href="{{ route('users.index') }}">Gestione Utenti</a>
                             </li>
-                        @endauth
-                    </ul>
+                        @endif
+                    @endauth
+                </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">

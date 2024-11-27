@@ -21,6 +21,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/events/{event}/edit', [EventController::class, 'edit'])->name('events.edit');
     Route::put('/events/{event}', [EventController::class, 'update'])->name('events.update');
     Route::delete('/events/{event}', [EventController::class, 'destroy'])->name('events.destroy');
+    Route::get('/users', [App\Http\Controllers\UserController::class, 'index'])->name('users.index');
+    Route::put('/users/{user}/make-admin', [App\Http\Controllers\UserController::class, 'makeAdmin'])->name('users.makeAdmin');
 });
 
 // Rotte accessibili a tutti gli utenti autenticati o ospiti
